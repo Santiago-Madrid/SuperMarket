@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -14,12 +16,13 @@ import lombok.Data;
 @Data
 @Table(name = "products")
 public class ProductEntity {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdProduct;
 
-    @Column(name = "category_id")
+    @Column(name = "category_id", insertable = false, updatable = false)
     private Long IdProductCategory;
 
     @Column(name = "name")
@@ -39,4 +42,8 @@ public class ProductEntity {
 
     @Column(name = "active")
     private boolean State;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 }
