@@ -1,5 +1,10 @@
 package com.Market.ProductosProveedores.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class ProductRepository {
+import com.Market.ProductosProveedores.Entity.ProductEntity;
+
+@Repository
+public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     
 }
