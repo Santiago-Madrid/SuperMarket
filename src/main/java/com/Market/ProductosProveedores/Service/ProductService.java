@@ -59,5 +59,4 @@ public class ProductService {
         } else {
             return Optional.empty();
         }
-    }
-}
+    } }
