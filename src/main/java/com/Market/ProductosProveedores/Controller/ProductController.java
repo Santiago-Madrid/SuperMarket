@@ -1,5 +1,6 @@
 package com.Market.ProductosProveedores.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -47,4 +48,16 @@ public class ProductController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<ProductResponseDto>>getProducts() {
+        try{
+            List<ProductResponseDto> response = productService.getProducts(); 
+            return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    
 }

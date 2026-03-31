@@ -1,5 +1,7 @@
 package com.Market.ProductosProveedores.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -59,4 +61,25 @@ public class ProductService {
         } else {
             return Optional.empty();
         }
-    } }
+    }
+
+    public List<ProductResponseDto> getProducts() {
+        List<ProductEntity> Products = productRepository.findAll();
+        List<ProductResponseDto> listProduct = new ArrayList<>();
+         for( ProductEntity product: Products){
+            ProductResponseDto productResponseDto = new ProductResponseDto();
+            productResponseDto.setIdProduct(product.getIdProduct());
+            productResponseDto.setIdProductCategory(product.getIdProductCategory());
+            productResponseDto.setName(product.getName());
+            productResponseDto.setStock(product.getStock());
+            productResponseDto.setBarCode(product.getBarCode());
+            productResponseDto.setSalePrice(product.getSalePrice());
+            productResponseDto.setPurchasePrice(product.getPurchasePrice());
+            productResponseDto.setState(product.isState());
+            listProduct.add(productResponseDto);
+        } 
+        return listProduct;
+    }
+
+    
+}
