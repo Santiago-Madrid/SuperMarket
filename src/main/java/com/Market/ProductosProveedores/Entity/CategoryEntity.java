@@ -23,6 +23,8 @@ public class CategoryEntity {
 
     private String name;
 
+    private String description;
+
     @OneToMany(mappedBy = "category")
     private List<ProductEntity> products;
     
