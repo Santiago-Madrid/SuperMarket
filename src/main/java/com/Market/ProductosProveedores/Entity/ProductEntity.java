@@ -22,8 +22,9 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdProduct;
 
-    @Column(name = "category_id", insertable = false, updatable = false)
-    private Long IdProductCategory;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 
     @Column(name = "name")
     private String Name;
@@ -43,7 +44,4 @@ public class ProductEntity {
     @Column(name = "active")
     private boolean State;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
 }

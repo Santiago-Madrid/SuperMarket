@@ -22,7 +22,7 @@ public class CategoryService {
     public CategoryResponseDto getCategoryWithProducts(String name) {
 
         CategoryEntity category = categoryRepository.findByNameWithProducts(name)
-            .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+        .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
         CategoryResponseDto dto = new CategoryResponseDto();
         dto.setId(category.getId());

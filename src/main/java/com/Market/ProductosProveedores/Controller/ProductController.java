@@ -24,16 +24,13 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
     private final ProductService productService;
 
-    @PostMapping 
-    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductRequestDto productRequestDto) {
-        try {
-            ProductResponseDto response = productService.createProduct(productRequestDto);
+    @PostMapping
+    public ResponseEntity<ProductResponseDto> createProduct(
+        @RequestBody ProductRequestDto productRequestDto) {
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        ProductResponseDto response = productService.createProduct(productRequestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{idProduct}")

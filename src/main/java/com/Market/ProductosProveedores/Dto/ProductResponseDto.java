@@ -10,6 +10,8 @@ public class ProductResponseDto {
 
     private Long IdProductCategory;
 
+    private String categoryName;
+
     private String Name;
 
     private Long Stock;
