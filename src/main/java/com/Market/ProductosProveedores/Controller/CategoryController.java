@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.Market.ProductosProveedores.Dto.CategoryRequestDto;
 import com.Market.ProductosProveedores.Dto.CategoryResponseDto;
 import com.Market.ProductosProveedores.Service.CategoryService;
 
@@ -28,6 +29,17 @@ public class CategoryController {
             e.printStackTrace();
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoría no encontrada");
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+        try {
+            CategoryResponseDto response = categoryService.createCategory(categoryRequestDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

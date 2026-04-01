@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.Market.ProductosProveedores.Dto.CategoryRequestDto;
 import com.Market.ProductosProveedores.Dto.CategoryResponseDto;
 import com.Market.ProductosProveedores.Dto.ProductResponseDto;
 import com.Market.ProductosProveedores.Entity.CategoryEntity;
@@ -45,5 +46,20 @@ public class CategoryService {
         dto.setProducts(products);
 
         return dto;
+    }
+
+    public CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto){
+       CategoryEntity category = new CategoryEntity();
+
+       category.setName(categoryRequestDto.getName());
+       category.setDescription(categoryRequestDto.getDescription());
+       categoryRepository.save(category);
+       
+       CategoryResponseDto response = new CategoryResponseDto();
+        response.setId(category.getId());
+        response.setName(category.getName()); 
+        response.setDescription(category.getDescription());
+        return response;
+
     }
 }
