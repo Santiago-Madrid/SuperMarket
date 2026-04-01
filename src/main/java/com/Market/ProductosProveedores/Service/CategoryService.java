@@ -27,6 +27,7 @@ public class CategoryService {
         CategoryResponseDto dto = new CategoryResponseDto();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setDescription(category.getDescription());
 
         List<ProductResponseDto> products = new ArrayList<>();
 
