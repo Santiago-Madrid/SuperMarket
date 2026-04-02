@@ -41,7 +41,7 @@ public class ProductEntity {
     @Column(name = "purchase_price")
     private BigDecimal PurchasePrice;   
 
-    @Column(name = "active")
+    @Column(name = "state")
     private boolean State;
 
 }
