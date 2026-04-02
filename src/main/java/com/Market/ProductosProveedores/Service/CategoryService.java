@@ -62,4 +62,33 @@ public class CategoryService {
         return response;
 
     }
+
+    public CategoryResponseDto updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
+        CategoryEntity category = categoryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
+    
+        if (categoryRequestDto.getName() != null) {
+            category.setName(categoryRequestDto.getName()); //Actualiza los campos (solo si vienen en el request)
+        }
+    
+        if (categoryRequestDto.getDescription() != null) {
+            category.setDescription(categoryRequestDto.getDescription());
+        }
+    
+        categoryRepository.save(category);
+    
+        CategoryResponseDto response = new CategoryResponseDto(); //Construyo y devuelvo respuesta
+        response.setId(category.getId());
+        response.setName(category.getName());
+        response.setDescription(category.getDescription());
+    
+        return response;
+    }
+
+    public void deleteCategory(Long id) {
+        categoryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
+    
+        categoryRepository.deleteById(id);
+    }
 }
