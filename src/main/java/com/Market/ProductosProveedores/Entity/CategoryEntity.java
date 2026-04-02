@@ -2,6 +2,7 @@ package com.Market.ProductosProveedores.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class CategoryEntity {
     private String name;
 
     private String description;
+
+    @Column(name = "state")
+        private boolean state = true;
 
     @OneToMany(mappedBy = "category")
     private List<ProductEntity> products;

@@ -11,7 +11,9 @@ import com.Market.ProductosProveedores.Dto.ProductResponseDto;
 import com.Market.ProductosProveedores.Entity.CategoryEntity;
 import com.Market.ProductosProveedores.Entity.ProductEntity;
 import com.Market.ProductosProveedores.Repository.CategoryRepository;
+import com.Market.ProductosProveedores.Repository.ProductRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service 
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     public CategoryResponseDto getCategoryWithProducts(String name) {
 
@@ -68,7 +71,7 @@ public class CategoryService {
             .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
     
         if (categoryRequestDto.getName() != null) {
-            category.setName(categoryRequestDto.getName()); //Actualiza los campos (solo si vienen en el request)
+            category.setName(categoryRequestDto.getName());
         }
     
         if (categoryRequestDto.getDescription() != null) {
@@ -77,7 +80,7 @@ public class CategoryService {
     
         categoryRepository.save(category);
     
-        CategoryResponseDto response = new CategoryResponseDto(); //Construyo y devuelvo respuesta
+        CategoryResponseDto response = new CategoryResponseDto(); 
         response.setId(category.getId());
         response.setName(category.getName());
         response.setDescription(category.getDescription());
@@ -85,10 +88,30 @@ public class CategoryService {
         return response;
     }
 
+    @Transactional
     public void deleteCategory(Long id) {
-        categoryRepository.findById(id)
+        CategoryEntity category = categoryRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
     
-        categoryRepository.deleteById(id);
+        category.setState(false);
+        categoryRepository.save(category);
+    
+        productRepository.deactivateByCategoryId(id);
+        System.out.println("Categoría desactivada con ID: " + id + " y sus productos");
+    }
+
+    @Transactional
+    public void restoreCategory(Long id) {
+        CategoryEntity category = categoryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
+    
+        if (category.isState()) {
+            throw new RuntimeException("La categoría ya está activa");
+        }
+        category.setState(true);
+        categoryRepository.save(category);
+    
+        productRepository.activateByCategoryId(id);
+        System.out.println("Categoría restaurada con ID: " + id + " y sus productos");
     }
 }
