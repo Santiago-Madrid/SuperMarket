@@ -82,7 +82,7 @@ public class ProductService {
     }
 
     public List<ProductResponseDto> getProducts() {
-        List<ProductEntity> Products = productRepository.findAll();
+        List<ProductEntity> Products = productRepository.findAllActive();
         List<ProductResponseDto> listProduct = new ArrayList<>();
         for (ProductEntity product : Products) {
             ProductResponseDto productResponseDto = new ProductResponseDto();
@@ -100,4 +100,31 @@ public class ProductService {
         return listProduct;
     }
 
+    public void deleteProduct(Long id) {
+        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            throw new BadRequestException("Producto no encontrado con ID: " + id);//Si no existe, lanzar error
+        }
+        ProductEntity product = optionalProduct.get();
+        if (!product.isState()) {
+            throw new BadRequestException("El producto ya está eliminado");
+        }
+        product.setState(false);//Soft Delete:cambia estado a FALSE
+        productRepository.save(product);
+    }
+
+
+    public void restoreProduct(Long id) {
+        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
+    
+        if (optionalProduct.isEmpty()) {
+            throw new BadRequestException("Producto no encontrado con ID: " + id);
+        }
+        ProductEntity product = optionalProduct.get();
+        if (product.isState()) {
+            throw new BadRequestException("El producto ya está activo");
+        }
+        product.setState(true);
+        productRepository.save(product);
+    }
 }
