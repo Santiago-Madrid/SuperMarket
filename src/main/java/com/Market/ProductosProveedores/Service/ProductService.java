@@ -34,7 +34,6 @@ public class ProductService {
 
     ProductEntity product = new ProductEntity();
 
-    // 🔥 SOLO CREAS UNA REFERENCIA (NO CONSULTA)
     CategoryEntity category = new CategoryEntity(); 
     category.setId(dto.getIdProductCategory());
 
@@ -62,7 +61,6 @@ public class ProductService {
 }
 
     public Optional<ProductResponseDto> getProduct(Long id) {
-        System.out.println("----------------------------ID recibido: " + id);
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             ProductEntity product = optionalProduct.get();

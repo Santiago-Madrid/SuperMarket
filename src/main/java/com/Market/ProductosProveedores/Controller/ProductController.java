@@ -35,7 +35,6 @@ public class ProductController {
 
     @GetMapping("/{idProduct}")
     public ResponseEntity<Optional<ProductResponseDto>> getProduct(@PathVariable(name="idProduct") Long idProduct) {
-        System.out.println("++++++++++++++++++++++ID recibido: " + idProduct);
         try{
             Optional<ProductResponseDto> response = productService.getProduct(idProduct); 
             return ResponseEntity.status(HttpStatus.OK).body(response);
