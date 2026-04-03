@@ -25,4 +25,4 @@ logging: # Seccion de logs
 server:
   port: 9090
   servlet:
-    context-path: /api/v1
+    context-path: /api/v1/products-providers
