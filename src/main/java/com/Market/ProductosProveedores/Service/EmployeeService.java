@@ -1,10 +1,14 @@
 package com.Market.ProductosProveedores.Service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Market.ProductosProveedores.Dto.EmployeeRequestDto;
 import com.Market.ProductosProveedores.Dto.EmployeeResponseDto;
 import com.Market.ProductosProveedores.Entity.EmployeeEntity;
+import com.Market.ProductosProveedores.Entity.PositionEmployee;
 import com.Market.ProductosProveedores.Repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +38,17 @@ public class EmployeeService {
         response.setHireDate(employee.getHireDate());
         response.setSalary(employee.getSalary());
         return response;
+    }
+
+    @Autowired
+    private EmployeeRepository repository;
+
+    public List<EmployeeEntity> getByPosition(PositionEmployee position) {
+        return repository.findByPositionAndActiveTrue(position);
+    }
+
+    public List<EmployeeEntity> getAll() {
+        return repository.findAll();
     }
 
 }
