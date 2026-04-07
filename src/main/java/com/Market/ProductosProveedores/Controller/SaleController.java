@@ -23,14 +23,7 @@ public class SaleController {
 
     @PostMapping
     public ResponseEntity<SaleResponseDto> createSale(@Valid @RequestBody SaleRequestDto request) {
-        try {
-            SaleResponseDto response = saleService.createSale(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+        SaleResponseDto response = saleService.createSale(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import com.Market.ProductosProveedores.Exceptions.NotFoundException;
 import com.Market.ProductosProveedores.Dto.SaleDetailRequestDto;
 import com.Market.ProductosProveedores.Dto.SaleDetailResponseDto;
 import com.Market.ProductosProveedores.Dto.SaleRequestDto;
 import com.Market.ProductosProveedores.Dto.SaleResponseDto;
 import com.Market.ProductosProveedores.Entity.EmployeeEntity;
+import com.Market.ProductosProveedores.Entity.PositionEmployee;
 import com.Market.ProductosProveedores.Entity.ProductEntity;
 import com.Market.ProductosProveedores.Entity.SaleDetailEntity;
 import com.Market.ProductosProveedores.Entity.SaleEntity;
@@ -32,11 +32,14 @@ public class SaleService {
 
     private static final BigDecimal TAX_RATE = new BigDecimal("0.19");
 
-    @Transactional
+
     public SaleResponseDto createSale(SaleRequestDto request) {
         EmployeeEntity employee = employeeRepository.findById(request.getEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + request.getEmployeeId()));
+                .orElseThrow(() -> new NotFoundException("Empleado no encontrado con ID: " + request.getEmployeeId()));
 
+        if (employee.getPosition() != PositionEmployee.CASHIER) {
+            throw new NotFoundException("El empleado no tiene permisos para vender");
+        }
         SaleEntity sale = new SaleEntity();
         sale.setSaleDateTime(LocalDateTime.now());
         sale.setEmployee(employee);
@@ -44,18 +47,16 @@ public class SaleService {
         sale.setTax(BigDecimal.ZERO);
         sale.setTotal(BigDecimal.ZERO);
 
-        sale = saleRepository.save(sale);
-
         List<SaleDetailEntity> details = new ArrayList<>();
         BigDecimal subtotal = BigDecimal.ZERO;
 
         for (SaleDetailRequestDto detailRequest : request.getDetails()) {
-
+            
             ProductEntity product = productRepository.findById(detailRequest.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detailRequest.getProductId()));
-
+            .orElseThrow(() -> new NotFoundException("Producto no encontrado con ID: " + detailRequest.getProductId()));
+            
             if (product.getStock() < detailRequest.getQuantity()) {
-                throw new RuntimeException("Stock insuficiente para el producto: " + product.getName() +
+                throw new NotFoundException("Stock insuficiente para el producto: " + product.getName() +
                         ". Stock actual: " + product.getStock() + ", solicitado: " + detailRequest.getQuantity());
             }
 
@@ -72,7 +73,7 @@ public class SaleService {
 
             details.add(detail);
             product.setStock(product.getStock() - detailRequest.getQuantity());
-            productRepository.save(product);
+            sale.addDetail(detail);
 
             subtotal = subtotal.add(detailSubtotal);
         }

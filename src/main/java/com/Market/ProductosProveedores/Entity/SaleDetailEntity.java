@@ -37,4 +37,8 @@ public class SaleDetailEntity {
 
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
+
+    
 }
+
+
