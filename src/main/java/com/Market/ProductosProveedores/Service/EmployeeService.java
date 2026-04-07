@@ -1,5 +1,6 @@
 package com.Market.ProductosProveedores.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class EmployeeService {
 
     public List<EmployeeEntity> getAll() {
         return repository.findAll();
+    }
+
+    public List<EmployeeEntity> getByHireDateRange(LocalDate startDate, LocalDate endDate) {
+        return employeeRepository.findByHireDateBetweenAndActiveTrue(startDate, endDate);
     }
 
 }
