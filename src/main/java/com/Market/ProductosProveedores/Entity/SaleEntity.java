@@ -44,4 +44,10 @@ public class SaleEntity {
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SaleDetailEntity> details = new ArrayList<>();
+
+    public void addDetail(SaleDetailEntity detail) {
+        this.details.add(detail);
+        detail.setSale(this);
+    }
+
 }
