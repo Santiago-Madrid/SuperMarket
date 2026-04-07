@@ -1,5 +1,6 @@
 package com.Market.ProductosProveedores.Controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -44,4 +45,17 @@ public class EmployeeController {
         return employeeService.getByPosition(position);
 
     }
+
+    @GetMapping("/date-range/{startDate}/{endDate}")
+    public ResponseEntity<List<EmployeeEntity>> getEmployeesByDateRange(
+        @PathVariable LocalDate startDate,
+        @PathVariable LocalDate endDate) {
+    try {
+        List<EmployeeEntity> employees = employeeService.getByHireDateRange(startDate, endDate);
+        return ResponseEntity.status(HttpStatus.OK).body(employees);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+}
 }
