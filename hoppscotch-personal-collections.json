@@ -1,0 +1,258 @@
+[
+  {
+    "v": 11,
+    "name": "Supermarket",
+    "folders": [],
+    "requests": [
+      {
+        "v": "17",
+        "name": "Crear productos",
+        "method": "POST",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/products",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"idProductCategory\": 1,\n  \"name\": \"quesillo\",\n  \"stock\": 50.00,\n  \"barCode\": \"1234567890107\",\n  \"salePrice\": 1500.50,\n  \"purchasePrice\": 1000.30,\n  \"state\": true\n}\n"
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "name": "Listar por categoria",
+        "method": "GET",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/categories/name/lacteos",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": ""
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/products/3",
+        "name": "Desactivar Producto",
+        "params": [],
+        "headers": [],
+        "method": "DELETE",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/products",
+        "name": "Listar productos",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/products/1/restore",
+        "name": "Restaurar productos",
+        "params": [],
+        "headers": [],
+        "method": "PUT",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/categories/2",
+        "name": "Restaurar categoria",
+        "params": [],
+        "headers": [],
+        "method": "PUT",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"name\": \"bebidas-alcoholicas-dudosas\",\n  \"description\": \"todo lo que haga daño\"\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/categories/1",
+        "name": "Eliminar categoria",
+        "params": [],
+        "headers": [],
+        "method": "DELETE",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/categories/1/restore",
+        "name": "Restaurar categoria",
+        "params": [],
+        "headers": [],
+        "method": "PUT",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/stock",
+        "name": "Aumento de stock relacion con el proveedor",
+        "params": [],
+        "headers": [],
+        "method": "PATCH",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n    \"idSupplier\":1,\n    \"idProduct\":3,\n    \"amount\":40\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/employees/date-range/2023-01-15/2023-07-22",
+        "name": "Listar por cargo",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"identificationNumber\": \"1234567800\",\n  \"fullName\": \"Juan Pérez\",\n  \"position\": \"ADMINISTRATOR\",\n  \"hireDate\": \"2026-03-15\",\n  \"salary\": 2500.50,\n  \"active\": true\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/sales",
+        "name": "Listar por fecha (rango)",
+        "params": [],
+        "headers": [],
+        "method": "POST",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{ \n  \"employeeId\": 4,\n\n  \"details\": [\n    {\n      \"productId\":1,\n      \"quantity\":10000000\n    }\n  ]\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "http://localhost:9090/api/v1/products-providers/sales",
+        "name": "Ventas",
+        "params": [],
+        "headers": [],
+        "method": "POST",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{ \n  \"employeeId\": 4,\n\n  \"details\": [\n    {\n      \"productId\":1,\n      \"quantity\":10000000\n    }\n  ]\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      }
+    ],
+    "headers": [],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    },
+    "variables": [],
+    "description": ""
+  }
+]
