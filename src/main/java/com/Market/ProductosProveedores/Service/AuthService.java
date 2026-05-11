@@ -68,5 +68,22 @@ public class AuthService {
         return response;
     }
 
+
+    /**
+     * Refrescar el token de seguridad al iniciar sesion
+     * @param token
+     * @return response con nuevo jwt
+     * @throws Exception
+     */
+
+    public JwtDTO refreshToken (String token) throws Exception {
+        JwtDTO response = new JwtDTO();
+
+        String newToken = jwtService.refreshToken(token);
+        response.setJwt(newToken);
+        return response;
+    }
+
+
 }
 
