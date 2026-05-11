@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.Market.ProductosProveedores.Enums.PositionEmployee;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -126,5 +127,32 @@ public class JwtService {
      */
     public PositionEmployee extractPositionId(String token) {
         return extractClaims(token, claims -> claims.get("positionEmployeeId", PositionEmployee.class));
+    }
+
+        /**
+        * Refrescar el token de seguridad al iniciar sesion y revisar si el token es valido o esta expirado
+        * 
+        * @param token
+        * @return nuevo jwt
+        * @throws Exception
+        */
+
+    public String refreshToken(String token) throws Exception {
+        Claims claims;
+
+        try {
+            claims = Jwts.parser()
+                    .verifyWith(getSignKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new Exception("Token is expired" + e.getMessage());
+        } catch (JwtException e) {
+            throw new Exception("Token is invalid" + e.getMessage());
+        }
+
+        // Generamos nuevo token con nueva expiracion
+        return generateToken(claims.get("employeeId", Long.class), claims.get("positionEmployeeId", PositionEmployee.class), claims.getSubject());
     }
 }
