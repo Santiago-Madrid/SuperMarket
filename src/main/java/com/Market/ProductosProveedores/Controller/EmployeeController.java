@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Market.ProductosProveedores.Dto.EmployeeRequestDto;
 import com.Market.ProductosProveedores.Dto.EmployeeResponseDto;
 import com.Market.ProductosProveedores.Entity.EmployeeEntity;
-import com.Market.ProductosProveedores.Entity.PositionEmployee;
+import com.Market.ProductosProveedores.Enums.PositionEmployee;
 import com.Market.ProductosProveedores.Service.EmployeeService;
 
 import jakarta.validation.Valid;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.Market.ProductosProveedores.Dto.EmployeeRequestDto;
 import com.Market.ProductosProveedores.Dto.EmployeeResponseDto;
 import com.Market.ProductosProveedores.Entity.EmployeeEntity;
-import com.Market.ProductosProveedores.Entity.PositionEmployee;
+import com.Market.ProductosProveedores.Enums.PositionEmployee;
 import com.Market.ProductosProveedores.Repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +25,7 @@ public class EmployeeService {
         EmployeeEntity employee = new EmployeeEntity();
 
         employee.setIdentificationNumber(employeeRequestDto.getIdentificationNumber());
+        employee.setPassword(employeeRequestDto.getPassword());
         employee.setFullName(employeeRequestDto.getFullName());
         employee.setPosition(employeeRequestDto.getPosition());
         employee.setHireDate(employeeRequestDto.getHireDate());
