@@ -18,4 +18,5 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
         List<EmployeeEntity> findByHireDateBetweenAndActiveTrue(LocalDate startDate, LocalDate endDate);
     
         Optional<EmployeeEntity> findByIdentificationNumber(String identificationNumber);
+        
 } 
