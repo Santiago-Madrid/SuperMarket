@@ -1,4 +1,4 @@
-package com.Market.ProductosProveedores.Entity;
+package com.Market.ProductosProveedores.Enums;
 
 import java.util.Arrays;
 

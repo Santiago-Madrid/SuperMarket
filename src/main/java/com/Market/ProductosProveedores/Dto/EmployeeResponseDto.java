@@ -3,7 +3,7 @@ package com.Market.ProductosProveedores.Dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.Market.ProductosProveedores.Entity.PositionEmployee;
+import com.Market.ProductosProveedores.Enums.PositionEmployee;
 
 import lombok.Data;
 
@@ -11,11 +11,19 @@ import lombok.Data;
 public class EmployeeResponseDto {
     
     private Long id;
+
     private String identificationNumber;
+
+    private String password;
+    
     private String fullName;
+    
     private PositionEmployee position;
+    
     private LocalDate hireDate;
+    
     private BigDecimal salary;
+    
     private boolean active = true;
 
 }

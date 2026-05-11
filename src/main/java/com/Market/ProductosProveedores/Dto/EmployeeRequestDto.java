@@ -1,9 +1,10 @@
 package com.Market.ProductosProveedores.Dto;
 
 import java.time.LocalDate;
-import java.math.BigDecimal;
 
-import com.Market.ProductosProveedores.Entity.PositionEmployee;
+import com.Market.ProductosProveedores.Enums.PositionEmployee;
+
+import java.math.BigDecimal;
 
 import lombok.Data;
 
@@ -14,6 +15,9 @@ public class EmployeeRequestDto {
     
     @NotNull(message = "El numero de identificación es obligatorio")
     private String identificationNumber;
+
+    @NotNull(message = "La contraseña es obligatoria")
+    private String password;
 
     @NotNull(message = "El nombre completo es obligatorio")
     private String fullName;

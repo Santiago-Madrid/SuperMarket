@@ -3,6 +3,8 @@ package com.Market.ProductosProveedores.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.Market.ProductosProveedores.Enums.PositionEmployee;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,6 +28,9 @@ public class EmployeeEntity {
    
     @Column(name = "identification_number", nullable = false, unique = true)
     private String identificationNumber;
+
+    @Column(name = "password", nullable = false)
+    private String password;
    
     @Column(name = "full_name", nullable = false)
     private String fullName;
