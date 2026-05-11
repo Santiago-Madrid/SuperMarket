@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.Market.ProductosProveedores.Dto.HttpGlobalResponse;
 import com.Market.ProductosProveedores.Dto.JwtDTO;
 import com.Market.ProductosProveedores.Dto.LoginRequestDTO;
+import com.Market.ProductosProveedores.Dto.RegisterRequestDto;
+import com.Market.ProductosProveedores.Dto.RegisterResponseDto;
 import com.Market.ProductosProveedores.Entity.EmployeeEntity;
 import com.Market.ProductosProveedores.Repository.EmployeeRepository;
 
@@ -53,7 +55,7 @@ public class AuthService {
 
         EmployeeEntity employee = employeeFound.get();
 
-        System.out.println("....-.-.-.-.-.-.-.-.request:"+request.getPassword()+"Employee"+employee.getPassword());
+        System.out.println("....-.-.-.-.-.-.-.-.request:"+request.getPassword()+"E"+employee.getPassword());
 
         if (!passwordEncoder.matches(request.getPassword(), employee.getPassword())) {
             response.setMessage("Identificación o contraseña son incorrectos");
@@ -84,6 +86,47 @@ public class AuthService {
         return response;
     }
 
+    /**
+     * Registrar empleado
+     * @param request
+     * @return RegisterResponseDto
+     */
 
+    public RegisterResponseDto register(RegisterRequestDto request) {
+        RegisterResponseDto response = new RegisterResponseDto();
+
+        if (employeeRepository
+                .findByIdentificationNumber(request.getIdentificationNumber())
+                .isPresent()) {
+
+            response.setMessage("La identificación ya existe");
+            return response;
+        }
+
+        EmployeeEntity employee = new EmployeeEntity();
+
+        employee.setIdentificationNumber(request.getIdentificationNumber());
+
+        employee.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        employee.setFullName(request.getFullName());
+
+        employee.setPosition(request.getPosition());
+
+        employee.setHireDate(request.getHireDate());
+
+        employee.setSalary(request.getSalary());
+
+        employee.setActive(request.isActive());
+
+        employeeRepository.save(employee);
+
+        response.setMessage("Empleado registrado correctamente");
+
+        return response;
+    }
 }
+
+
+
 

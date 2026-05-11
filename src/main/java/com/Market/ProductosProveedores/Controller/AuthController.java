@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Market.ProductosProveedores.Dto.HttpGlobalResponse;
 import com.Market.ProductosProveedores.Dto.JwtDTO;
 import com.Market.ProductosProveedores.Dto.LoginRequestDTO;
+import com.Market.ProductosProveedores.Dto.RegisterRequestDto;
+import com.Market.ProductosProveedores.Dto.RegisterResponseDto;
 import com.Market.ProductosProveedores.Service.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,4 +70,10 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponseDto> register(
+        @RequestBody RegisterRequestDto request) {
+            return ResponseEntity.ok(authService.register(request));
+        }
 }
