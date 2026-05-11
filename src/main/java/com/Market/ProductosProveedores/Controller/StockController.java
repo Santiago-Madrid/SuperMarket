@@ -21,6 +21,11 @@ public class StockController {
     
     private final StockEntryService stockEntryService;
 
+    /**
+     * stock para un producto
+     * @param stockEntryDTO
+     * @return ProductRequestDto
+     */
     @PatchMapping
     public ResponseEntity<ProductRequestDto> EntryStock(@RequestBody @Valid StockEntryDTO stockEntryDTO) {
         ProductRequestDto response = stockEntryService.updateStockEntry(stockEntryDTO);;
