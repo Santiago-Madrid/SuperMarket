@@ -6,9 +6,19 @@ import com.Market.ProductosProveedores.Exceptions.BadRequestException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum PositionEmployee {
-    ADMINISTRATOR,
-    CASHIER,
-    ASSISTANT;
+    ADMINISTRATOR(1l),
+    CASHIER(2l),
+    ASSISTANT(3l);
+
+    private final Long id;
+
+    PositionEmployee(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
 
     @JsonCreator    
