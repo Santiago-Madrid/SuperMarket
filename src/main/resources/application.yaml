@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/db_supermarket
     username: root
-    password: admin
+    password: admi123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -31,4 +31,4 @@ security:
   jwt:
     
     secret-key: w3iP4e7nLr4kto9Tc28SNb6z98YcIqLO26bJZiLWxbc=
-    token-expiration: 600000
+    token-expiration: 900000

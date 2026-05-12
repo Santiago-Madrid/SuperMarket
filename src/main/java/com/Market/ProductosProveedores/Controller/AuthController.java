@@ -53,23 +53,30 @@ public class AuthController {
      */
     @GetMapping("/refresh")
     public ResponseEntity<JwtDTO> refreshToken(HttpServletRequest request) {
+
+    try {
+
         String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+
+        if (authHeader == null || !authHeader.startsWith("Bearer")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        String token = authHeader.replaceFirst("Bearer ", "");
+        String token = authHeader
+                .replace("Bearer", " ")
+                .trim();
 
-        JwtDTO response = new JwtDTO();
+        JwtDTO response = authService.refreshToken(token);
 
-        try {
-            response = authService.refreshToken(token);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        }
+        return ResponseEntity.ok(response);
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
+}
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDto> register(

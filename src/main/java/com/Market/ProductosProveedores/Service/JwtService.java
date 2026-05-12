@@ -53,8 +53,8 @@ public class JwtService {
      */
     public String generateToken(Long employeeId, PositionEmployee positionEmployeeId, String fullNameEmployee) {
         return Jwts.builder()
-                .claims(Map.of("employeeId", employeeId))
-                .claims(Map.of("positionEmployeeId", positionEmployeeId))
+                .claim("employeeId", employeeId)
+                .claim("positionEmployeeId", positionEmployeeId)
                 .subject(fullNameEmployee)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + tokenExpiration)) 
@@ -130,7 +130,7 @@ public class JwtService {
     }
 
         /**
-        * Refrescar el token de seguridad al iniciar sesion y revisar si el token es valido o esta expirado
+        * Refrescar el token de seguridad al iniciar sesion 
         * 
         * @param token
         * @return nuevo jwt
@@ -138,21 +138,20 @@ public class JwtService {
         */
 
     public String refreshToken(String token) throws Exception {
-        Claims claims;
 
-        try {
-            claims = Jwts.parser()
-                    .verifyWith(getSignKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-        } catch (ExpiredJwtException e) {
-            throw new Exception("Token is expired" + e.getMessage());
-        } catch (JwtException e) {
-            throw new Exception("Token is invalid" + e.getMessage());
-        }
+    Claims claims = Jwts.parser()
+            .verifyWith(getSignKey())
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
 
-        // Generamos nuevo token con nueva expiracion
-        return generateToken(claims.get("employeeId", Long.class), claims.get("positionEmployeeId", PositionEmployee.class), claims.getSubject());
-    }
+    PositionEmployee positionEmployee = PositionEmployee.valueOf(claims.get("positionEmployeeId", String.class)
+            );
+
+    return generateToken(
+            claims.get("employeeId", Long.class),
+            positionEmployee,
+            claims.getSubject()
+    );
+}
 }
